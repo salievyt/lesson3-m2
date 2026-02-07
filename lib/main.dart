@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'dart:math';
 
 void main() {
-  runApp(const TimerWidget());
+  runApp(const MovmentImage());
 }
 
 // class MainApp extends StatelessWidget {
@@ -85,14 +85,15 @@ class _TimerWidgetState extends State<TimerWidget> {
               ),
 
               ElevatedButton(
-                  onPressed: (){
-                    setState(() {
-                      changeColor();
-                    });
-                  },
-                  child: Text("Change color"),
+                onPressed: (){
+                  setState(() {
+                    changeColor();
+                  });
+                },
+                child: Text("Change color"),
 
               ),
+
               ElevatedButton(
                 onPressed: (){
                   setState(() {
@@ -153,7 +154,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                   child: Container(
                     width: 300,
                     height: 300,
-                    child: Text("Long press to reset timer"),
+                    child: Text(""),
                   ),
                 ),
               )
@@ -164,5 +165,42 @@ class _TimerWidgetState extends State<TimerWidget> {
     );
   }
 }
+
+class MovmentImage extends StatefulWidget {
+  const MovmentImage({super.key});
+
+  @override
+  State<MovmentImage> createState() => _MovmentImageState();
+}
+
+class _MovmentImageState extends State<MovmentImage> {
+  double _xPosition = 200;
+  double _yPosition = 200;
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Stack(
+          children: [
+            Positioned(
+              top: _yPosition,
+              left: _xPosition,
+              child: GestureDetector(
+                onPanUpdate: (details) {
+                  setState(() {
+                    _xPosition += details.delta.dx;
+                    _yPosition += details.delta.dy;
+                  });
+                },
+                child: Image.network('https://i.pinimg.com/736x/e0/92/f2/e092f2af33ae07240bd78ad00f2a46d6.jpg',width: 200,height: 100,),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 
